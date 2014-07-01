@@ -1,7 +1,11 @@
-if (process) {
-var TCPSocket = require("tcp-socket");
-} else {
+window.navigator.vibrate(300);
+
+
 var TCPSocket = navigator.mozTCPSocket;
+if (process) {
+TCPSocket = require("tcp-socket");
+} else {
+TCPSocket = navigator.mozTCPSocket;
 }
 
 // TODO: retrieve service signature (HTTP HEAD, SMTP BANNER, ...)
@@ -34,6 +38,8 @@ function Scanner(hosts, ports, options, emit) {
 	if(TCPSocket===undefined){
 		alert ("No TCPSocket API here");
 		return undefined;
+	}else{
+		alert("TCP API is here");
 	}
 	var self = this;
 	var sockets = {};
