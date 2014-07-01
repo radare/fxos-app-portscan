@@ -190,7 +190,7 @@ setTimeout (function() {
 			});
 		}
 	}
-},1000); // make it async!
+},0); // make it async!
 	return self;
 }
 
