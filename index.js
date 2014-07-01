@@ -1,7 +1,8 @@
 
 function addRow(timediff, state, host, port) {
 	var o = document.getElementById('output');
-	o.innerHTML += timediff+"  "+port+"  "+host+"<br />\n";
+	var str = timediff+"  "+port+"  "+host;
+	o.innerHTML += str + "<br />\n";
 }
 
 function clearRows() {
@@ -27,7 +28,7 @@ function scanNetwork() {
 			}
 		});
 	}  catch (e) {
-		alert( e.stack);
+		alert(e.stack);
 	}
 }
 

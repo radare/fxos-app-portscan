@@ -3,7 +3,7 @@
   "launch_path": "/index.html",
   "description": "Portscan utility for FirefoxOS",
   "default_locale": "en",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "developer": {
     "name": "pancake",
     "url": "http://github.com/radare/fxos-app-portscan/"

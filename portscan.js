@@ -1,7 +1,14 @@
-if (process) {
-var TCPSocket = require("tcp-socket");
+function isFxOS() {
+	return (typeof (navigator)=='object' && navigator.mozTCPSocket);
+}
+if (isFxOS()) {
+	var TCPSocket = navigator.mozTCPSocket;
 } else {
-var TCPSocket = navigator.mozTCPSocket;
+	var TCPSocket = require("tcp-socket");
+}
+
+function SocketID(s) {
+	return s.host+":"+s.port;
 }
 
 // TODO: retrieve service signature (HTTP HEAD, SMTP BANNER, ...)
@@ -120,23 +127,37 @@ function Scanner(hosts, ports, options, emit) {
 	if (typeof (ports)!=="object")
 		throw "wrong ports";
 	
-	var gid = 0;
 	function testPort (host, port) {
 		var s = TCPSocket.open (host, port);
-	
-		s.id = gid++;
-		sockets[s.id] = s;
-		s.onerror = function (x) {
-			sockets[s.id] = undefined
+		//alert("testport "+SocketID(s));
+
+		sockets[SocketID(s)] = s;
+		if (isFxOS()) {
+			// fxos
+			switch (s.readyState) {
+			case 'open':
+				if (emit) emit ('open', host, port);
+				break;
+			case 'closed':
+				if (emit) emit ('closed', host, port);
+				break;
+			}
 			s.close();
+		} else {
+	
+		s.onerror = function (x) {
+			sockets[SocketID(s)] = undefined
+			s.close();
+			
 			if (emit) emit ('closed', host, port);
 		//	console.log("CLOSED", port);
 		}
 		s.onopen = function () {
-			sockets[s.id] = undefined
+			sockets[SocketID(s)] = undefined
 			s.close();
 			if (emit) emit ('open', host, port);
 		//	console.log("OPEN", port);
+		}
 		}
 	}
 	function isKnownPort(port) {
@@ -154,7 +175,6 @@ setTimeout (function() {
 			ports.forEach (function (p) {
 				if (!self.running)
 					return;
-
 				if (isKnownPort (p))
 					testPort (h, p, emit);
 			});
@@ -197,7 +217,7 @@ setTimeout (function() {
 
 /* main */
 
-if (process) {
+if (!isFxOS()) {
 	/* NodeJS */
 	var argv = process.argv;
 
