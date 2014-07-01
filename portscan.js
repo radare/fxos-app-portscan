@@ -1,8 +1,15 @@
+// WIN
 function isFxOS() {
 	return (typeof (navigator)=='object' && navigator.mozTCPSocket);
 }
+if (typeof alert == 'undefined')
+alert = console.log
 if (isFxOS()) {
+if (navigator.TCPSocket) {
+var TCPSocket = navigator.TCPSocket;
+} else {
 	var TCPSocket = navigator.mozTCPSocket;
+}
 } else {
 	var TCPSocket = require("tcp-socket");
 }
@@ -126,39 +133,37 @@ function Scanner(hosts, ports, options, emit) {
 		throw "wrong hosts";
 	if (typeof (ports)!=="object")
 		throw "wrong ports";
-	
 	function testPort (host, port) {
-		var s = TCPSocket.open (host, port);
-		//alert("testport "+SocketID(s));
-
-		sockets[SocketID(s)] = s;
-		if (isFxOS()) {
-			// fxos
-			switch (s.readyState) {
-			case 'open':
-				if (emit) emit ('open', host, port);
-				break;
-			case 'closed':
-				if (emit) emit ('closed', host, port);
-				break;
-			}
-			s.close();
-		} else {
+	//	alert ("test "+port)
+		//alert ("PENIS");
 	
-		s.onerror = function (x) {
+		var s = TCPSocket.open (host, port);
+	//	alert("test "+host+":"+port+" "+s.readyState);
+		sockets[SocketID(s)] = s;
+		if (false) {
+			setTimeout(function() {
+			if(emit) emit(s.readyState,host,port);
 			sockets[SocketID(s)] = undefined
 			s.close();
-			
-			if (emit) emit ('closed', host, port);
-		//	console.log("CLOSED", port);
+			}, 1000); //connect timeout?
+		} else {
+/*those are tcp-socket.js only*/
+			s.onerror = function (x) {
+				sockets[SocketID(s)] = undefined
+				s.close();
+				
+				if (emit) emit ('closed', host, port);
+			//	console.log("CLOSED", port);
+			}
+			s.onopen = function () {
+				sockets[SocketID(s)] = undefined
+				s.close();
+				//alert ("open "+port)
+				if (emit) emit ('open', host, port);
+			//	console.log("OPEN", port);
+			}
 		}
-		s.onopen = function () {
-			sockets[SocketID(s)] = undefined
-			s.close();
-			if (emit) emit ('open', host, port);
-		//	console.log("OPEN", port);
-		}
-		}
+	//	alert ("readyState:"+s.readyState)
 	}
 	function isKnownPort(port) {
 		for (var s in services) {
@@ -170,7 +175,6 @@ function Scanner(hosts, ports, options, emit) {
 setTimeout (function() {
 	if (options.fast) {
 		/* scan known services */
-
 		hosts.forEach (function (h) {
 			ports.forEach (function (p) {
 				if (!self.running)
@@ -210,7 +214,9 @@ setTimeout (function() {
 			});
 		}
 	}
-},0); // make it async!
+	return true;
+},1); // make it async!
+
 	return self;
 }
 
@@ -235,10 +241,11 @@ if (!isFxOS()) {
 		var options = {
 			fast: true,
 			known: false,
-			timeout: 1000
+			timeout: 0
 		}
 		var scan = Scanner (hosts, ports, options, function (state, h, p) {
-			if (state == 'open') {
+			//alert("emit "+state)
+			if (state == 'open'|| state =='opened') {
 				var now = new Date().getTime();
 				console.log (now-first,state,h,p);
 			}

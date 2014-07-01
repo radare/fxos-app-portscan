@@ -1,7 +1,7 @@
 
 function addRow(timediff, state, host, port) {
 	var o = document.getElementById('output');
-	var str = timediff+"  "+port+"  "+host;
+	var str = timediff+" ("+state+") "+port+"  "+host;
 	o.innerHTML += str + "<br />\n";
 }
 
@@ -9,6 +9,7 @@ function clearRows() {
 	var o = document.getElementById('output');
 	o.innerHTML = '';
 }
+
 function scanNetwork() {
 	var hosts = document.getElementById('host').value
 	var ports = document.getElementById('port').value
@@ -20,9 +21,10 @@ function scanNetwork() {
 			known: false,
 			timeout: 10000
 		}
-
+    clearRows();
 		var scan = Scanner (hosts, ports, options, function (state, h, p) {
-			if (state == 'open') {
+			if (state == 'open' || state =='opened'|| state =='closing') {
+				alert ("OPEN "+h+":"+p);
 				var now = new Date().getTime();
 				addRow (now-first,state,h,p);
 			}
