@@ -1,0 +1,6 @@
+{
+	"name": "fxos-app-portscan",
+	"dependencies": {
+		"tcp-socket": "*"
+	}
+}

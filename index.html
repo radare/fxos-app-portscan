@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+	<meta content="yes" name="apple-mobile-web-app-capable" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=false" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>PortScan</title>
+  <script type="text/javascript" src="portscan.js"></script>
+  <script type="text/javascript" src="index.js"></script>
+    <style>
+      html {
+overflow:hidden;
+      }
+      body {
+top:0px;
+left:0px;
+position:absolute;
+width:100%;
+        font-family: arial;
+        margin: 0;
+	background-color:white;
+	border:0;
+        padding: none;
+overflow:hidden;
+      }
+
+      .emscripten { padding-right: 0; margin-left: auto; margin-right: auto; display: block; }
+      div.emscripten { text-align: center; }      
+      div.emscripten_border { border: 1px solid black; }
+      /* the canvas *must not* have any border or padding, or mouse coords will be wrong */
+      canvas.emscripten { border: 0px none; }
+
+      input {
+    border-radius: 0;
+    -webkit-appearance: none;
+        margin: 0 auto;
+        display: block;
+	spacing-left:10px;
+	border:5px;
+                font-size:2em;
+
+        background-color: #909090;
+  background: linear-gradient(to bottom,#909090,#f0f0f0); 
+        color: black;
+        font-family: 'Lucida Console', Monaco, monospace;
+        outline: none;
+      }
+      #output {
+    resize: none;
+        width: 100%;
+	padding:0;
+	border:0;
+font-size:0.8em;
+        margin: 0 auto;
+        display: block;
+  background: linear-gradient(to bottom,black,black); 
+        color: black;
+        font-family: 'Lucida Console', Monaco, monospace;
+        outline: none;
+      }
+    </style>
+  </head>
+  <body id="body">
+    Host
+<input value="localhost" type="" id="host" autocorrect="off" autocapitalize="off"></input>
+
+  <br/>
+  Port
+  <input type="" id="port" autocorrect="off" autocapitalize="off"></input>
+<br />
+<input id='scanbutton' value="Scan" type="button"></input>
+<div id="output"> </div>
+  </body>
+</html>
