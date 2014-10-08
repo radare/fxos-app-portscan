@@ -3,6 +3,7 @@ function addRow(timediff, state, host, port) {
 	var o = document.getElementById('output');
 	var str = timediff+" ("+state+") "+port+"  "+host;
 	o.innerHTML += str + "<br />\n";
+	//alert("pene");
 }
 
 function clearRows() {
@@ -24,12 +25,15 @@ function scanNetwork() {
     clearRows();
 		var scan = Scanner (hosts, ports, options, function (state, h, p) {
 			if (state == 'open' || state =='opened'|| state =='closing') {
-				alert ("OPEN "+h+":"+p);
+				//alert ("OPEN "+h+":"+p);
 				var now = new Date().getTime();
 				addRow (now-first,state,h,p);
-			}
+			} else
+				if (state =="done"){
+					//alert("Done");
+				}
 		});
-	}  catch (e) {
+	} catch (e) {
 		alert(e.stack);
 	}
 }

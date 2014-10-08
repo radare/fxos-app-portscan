@@ -213,6 +213,7 @@ function Scanner(hosts, ports, options, emit) {
         });
       }
     }
+    emit ('done');
     return true;
   }, 1); // make it async!
 
