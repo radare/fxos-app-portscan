@@ -4,8 +4,9 @@ setTimeout (function () {
 	var o = document.getElementById('scanlist');
 	var item = "<li>";
 	item += "<a id='btn-action-menu' href='#'>";
-	item += "<p><b style='padding:5px;background-color:green;color:white'>open</b> ";
-	item += "<b style='padding:5px;background-color:yellow;color:black'>"+port+"</b>&nbsp;"+host+"&nbsp;&nbsp;<em>"+timediff+"ms</em></p>";
+	item += "<p>";
+	item += "<div style='float:left;font-weight:bold;padding:5px;background-color:#00e000;margin-left:10px;min-width:24px;height:24px;color:white'><center>"+port+"</center></div> ";
+	item += "&nbsp;"+host+"&nbsp;&nbsp;<div style='float:right;font-size:0.7em;margin-right:10px'><i>"+timediff+"ms</i></div></p>";
         item += "</a>";
 	item += "</li>";
 	o.innerHTML += item;
