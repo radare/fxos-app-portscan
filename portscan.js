@@ -152,7 +152,9 @@ function Scanner(hosts, ports, options, emit) {
         sockets[SocketID(s)] = undefined
         s.close();
 
-        if (emit) emit ('closed', host, port);
+	setTimeout (function() {
+		if (emit) emit ('closed', host, port);
+	}, 10);
         //	console.log("CLOSED", port);
       }
       s.onopen = function() {

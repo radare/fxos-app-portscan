@@ -1,6 +1,6 @@
 {
   "name": "portscan",
-  "launch_path": "/index.html",
+  "launch_path": "/test.html",
   "description": "Portscan utility for FirefoxOS",
   "default_locale": "en",
   "version": "0.2.0",

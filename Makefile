@@ -1,4 +1,4 @@
-FILES=manifest.webapp img index.html portscan.js
+FILES=manifest.webapp img index.html portscan.js test.js test.html
 
 all:
 	rm -f portscan.zip
