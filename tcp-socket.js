@@ -32,7 +32,9 @@
         module.exports = factory(null, null, require('net'), require('tls'));
     } else {
         // global browser import
+if (typeof(forge) != 'undefined') {
         navigator.TCPSocket = factory(navigator, forge);
+}
     }
 }(function(root, forge, net, tls) {
     'use strict';

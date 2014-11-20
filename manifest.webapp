@@ -1,26 +1,26 @@
 {
-  "name": "portscan",
-  "launch_path": "/test.html",
-  "description": "Portscan utility for FirefoxOS",
-  "default_locale": "en",
-  "version": "0.2.0",
-  "developer": {
-    "name": "pancake",
-    "url": "http://github.com/radare/fxos-app-portscan/"
-  },
-      "type": "privileged",
-"permissions" : {
-  "tcp-socket" : {
-    "description" : "Create TCP sockets and communicate over them."
-  }
-},
-    "icons": {
-    "32": "/img/icon32.png",
-    "60": "/img/icon60.png",
-    "64": "/img/icon64.png",
-    "90": "/img/icon90.png",
-    "120": "/img/icon120.png",
-    "128": "/img/icon128.png",
-    "256": "/img/icon256.png"
-  }
+   "version" : "0.3",
+   "default_locale" : "en",
+   "type" : "privileged",
+   "name" : "portscan",
+   "developer" : {
+      "name" : "pancake",
+      "url" : "http://github.com/radare/fxos-app-portscan/"
+   },
+   "permissions" : {
+      "tcp-socket" : {
+         "description" : "Create TCP sockets and communicate over them."
+      }
+   },
+   "launch_path" : "/index.html",
+   "description" : "Portscan utility for FirefoxOS",
+   "icons" : {
+      "64" : "/img/icon64.png",
+      "256" : "/img/icon256.png",
+      "120" : "/img/icon120.png",
+      "90" : "/img/icon90.png",
+      "128" : "/img/icon128.png",
+      "32" : "/img/icon32.png",
+      "60" : "/img/icon60.png"
+   }
 }

@@ -1,4 +1,5 @@
-FILES=manifest.webapp img index.html portscan.js test.js test.html
+FILES=manifest.webapp img $(shell cat files)
+#index.html portscan.js test.js test.html
 
 all: shared
 	rm -f portscan.zip

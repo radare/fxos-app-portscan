@@ -2,6 +2,9 @@
 function isFxOS() {
   return (typeof (navigator) == 'object' && navigator.mozTCPSocket);
 }
+function isNodeJS() {
+  return (typeof (navigator) == 'require');
+}
 if (typeof alert == 'undefined')
   alert = console.log
 if (typeof console == 'undefined')
@@ -14,11 +17,19 @@ if (isFxOS()) {
     var TCPSocket = navigator.mozTCPSocket;
   }
 } else {
+if (typeof(require) != "undefined") {
   var TCPSocket = require("tcp-socket");
+} else {
+  var TCPSocket = { open: function() {
+console.log ("unsupported platform");
+}};
+}
 }
 
 function SocketID(s) {
-  return s.host + ":" + s.port;
+  if (typeof (s) != 'undefined')
+    return s.host + ":" + s.port;
+  return "";
 }
 
 // TODO: retrieve service signature (HTTP HEAD, SMTP BANNER, ...)
@@ -147,6 +158,7 @@ function Scanner(hosts, ports, options, emit) {
         s.close();
       }, 1000); //connect timeout?
     } else {
+if (typeof (s) != "undefined") {
       /*those are tcp-socket.js only*/
       s.onerror = function(x) {
         sockets[SocketID(s)] = undefined
@@ -163,6 +175,7 @@ function Scanner(hosts, ports, options, emit) {
         if (emit) emit ('open', host, port);
         //	console.log("OPEN", port);
       }
+}
     }
     //	alert ("readyState:"+s.readyState)
   }
@@ -225,7 +238,7 @@ function Scanner(hosts, ports, options, emit) {
 
 /* main */
 
-if (!isFxOS()) {
+if (!isFxOS() && isNodeJS()) {
   /* NodeJS */
   var argv = process.argv;
 
